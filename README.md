@@ -3,6 +3,7 @@
 A standalone alarm clock that fixes a problem with phone alarms: with the phone next to the bed, it is too easy to dismiss the alarm without properly waking up. This clock sits elsewhere in the room, and its alarms are set from an iPhone app over Bluetooth. When an alarm goes off, the only way to stop it is to physically reach the clock, which gets you out of bed.
 
 **Demo video:** [Watch the demo](docs/alarmDemo.mp4)
+**App video:** [Watch the demo](docs/appDemo.mp4)
 
 ![Alarm clock](docs/alarm-clock.png)
 
