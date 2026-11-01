@@ -40,11 +40,9 @@ int melody3[] = {440, 440, 880, 0};
 
 void addAlarm(int h, int m) {
   if (alarmCount >= 5) return;
-
   alarms[alarmCount].hour = h;
   alarms[alarmCount].minute = m;
   alarms[alarmCount].active = true;
-
   alarmCount++;
 }
 
@@ -81,23 +79,17 @@ void updateBLE() {
       cmd[cmdIdx] = '\0';
 
       if (cmdIdx == 2 && cmd[0] == 'D' && cmd[1] == 'A') {
-
         alarmCount = 0;
-
         for (int i = 0; i < 5; i++) {
           alarms[i].hour = 0;
           alarms[i].minute = 0;
           alarms[i].active = false;
         }
-
         BT.print("CLEARED#");
       }
-
       else if (cmdIdx == 5) {
-
         int h = (cmd[1] - '0') * 10 + (cmd[2] - '0');
         int m = (cmd[3] - '0') * 10 + (cmd[4] - '0');
-
         if (cmd[0] == 'A') addAlarm(h, m);
         else if (cmd[0] == 'D') deleteAlarm(h, m);
       }
@@ -141,7 +133,6 @@ void updateSound() {
   lastNote = millis();
 
   int freq = 0;
-
   if (currentMelody == 1) freq = melody1[noteIndex];
   if (currentMelody == 2) freq = melody2[noteIndex];
   if (currentMelody == 3) freq = melody3[noteIndex];
@@ -174,16 +165,13 @@ void updateOLED(DateTime now) {
   display.setTextSize(1);
   display.setCursor(0, 0);
   display.print(alarmRinging ? "RING" : "OK");
-
   display.setCursor(90, 0);
   display.print("M");
   display.print(currentMelody);
 
   display.setTextSize(2);
-
   char t[9];
   sprintf(t, "%02d:%02d:%02d", now.hour(), now.minute(), now.second());
-
   display.setCursor(10, 22);
   display.print(t);
 
@@ -197,23 +185,18 @@ void updateOLED(DateTime now) {
 
 void setup() {
   Serial.begin(9600);
-
   Wire.begin();
   rtc.begin();
   display.begin(OLED_ADDR, true);
-
   pinMode(buzzerPin, OUTPUT);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-
   noTone(buzzerPin);
 }
 
 void loop() {
   updateBLE();
-
   DateTime now = rtc.now();
-
   checkAlarms(now);
   updateSound();
   updateUltrasonic();
